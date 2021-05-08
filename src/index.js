@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
+import './SeasonDisplay.css';
 
 class App extends React.Component {
 	//When a new instance of this component is created this the constructor method is called before anything else
@@ -25,19 +27,14 @@ class App extends React.Component {
 	// componentDidUpdate() {
 	// 	console.log('My component was just updated - it rerendered!');
 	// }
-	//render method is required
-	render() {
-		//2
+
+	//the rendercontent method was created because we should avoid having conditionals in a render method. It is also not good to have multiple return statements in the render methods.
+
+	renderContent() {
 		if (this.state.errorMessage && !this.state.latitude) {
 			return <div>Error: {this.state.errorMessage}</div>;
 		} else if (!this.state.errorMessage && !this.state.latitude) {
-			return (
-				<div className='ui segment center'>
-					<div className='ui active inverted dimmer'>
-						<div className='ui text loader'>Loading</div>
-					</div>
-				</div>
-			);
+			return <Spinner message='Please accept location request' />;
 		} else {
 			return (
 				<div>
@@ -45,6 +42,10 @@ class App extends React.Component {
 				</div>
 			);
 		}
+	}
+	//render method is required
+	render() {
+		return <div>{this.renderContent()}</div>;
 	}
 }
 

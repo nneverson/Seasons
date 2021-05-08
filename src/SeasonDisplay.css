@@ -26,3 +26,8 @@
 .summer {
 	background-color: orange;
 }
+.loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
