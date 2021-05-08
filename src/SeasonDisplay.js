@@ -1,7 +1,18 @@
+import './SeasonDisplay.css';
 import React from 'react';
 
-//determine what the season is
+const seasonConfig = {
+	summer: {
+		text: `Let's hit the beach`,
+		iconName: 'sun',
+	},
+	winter: {
+		text: `burr it's cold`,
+		iconName: 'snowflake',
+	},
+};
 
+//determine what the season is
 const getSeason = (latitude, month) => {
 	if (month > 2 && month < 9) {
 		return latitude > 0 ? 'summer' : 'winter';
@@ -12,15 +23,13 @@ const getSeason = (latitude, month) => {
 
 const SeasonDisplay = (props) => {
 	const season = getSeason(props.latitude, new Date().getMonth());
-	const text =
-		season === 'winter' ? 'Burr, it is chilly' : 'Lets hit the beach';
-	const icon = season === 'winter' ? 'snowflake' : 'sun';
-	console.log(season);
+	const { text, iconName } = seasonConfig[season]; //this is destructuring
+
 	return (
-		<div>
-			<i className={`${icon} icon`} />
+		<div className={`season-display ${season}`}>
+			<i className={`icon-left massive ${iconName} icon`} />
 			<h1>{text}</h1>
-			<i className={`${icon} icon`} />
+			<i className={`icon-right massive ${iconName} icon`} />
 		</div>
 	);
 };
